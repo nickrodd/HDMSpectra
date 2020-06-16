@@ -39,5 +39,5 @@ import numpy as np
 from HDMSpectra import HDMSpectra
 
 x = np.logspace(-4.,0.,1000)
-dNdx = HDMSpectra.spec(22, 5, x, 1.e9)
+dNdx = HDMSpectra.spec(22, 5, x, 1.e9, './HDMSpectra.hdf5')
 ```
