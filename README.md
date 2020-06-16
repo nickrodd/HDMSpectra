@@ -36,6 +36,6 @@ As a minimal example, the 1 EeV spectrum in the figure above can be generated as
 import numpy as np
 from HDMSpectra import HDMSpectra
 
-xvals = np.logspace(-4.,0.,1000)
-dNdx = HDMSpectra.spec(22, 5, xvals, 1.e9)
+x = np.logspace(-4.,0.,1000)
+dNdx = HDMSpectra.spec(22, 5, x, 1.e9)
 ```
