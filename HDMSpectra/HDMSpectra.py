@@ -10,24 +10,22 @@
 #
 ###############################################################################
 
-import os
 import numpy as np
 from scipy.interpolate import interp1d, interp2d
 import h5py
 import copy
 
 from .pclid import cid
-code_dir, _ = os.path.split(__file__)
-data = os.path.join(code_dir, 'HDMSpectra.hdf5')
 
-
-def spec(finalstate, X, xvals, mDM, annihilation=False, Xbar=None, delta=False):
+def spec(finalstate, X, xvals, mDM, data, 
+         annihilation=False, Xbar=None, delta=False):
     """ Compute spectrum per decay (or per annihilation) of heavy dark matter
         Process computed is DM(+DM) -> X Xbar -> finalstate
         - finalstate: stable Standard Model state, provide as a string or pdgid
         - X: initial state, provide as a string or pdgid
         - xvals: array of energy fractions (2E/mDM for decay or E/mDM for ann)
         - mDM: Dark Matter mass [GeV]
+        - data: string point to the hdf5 data that ships with the github package
         - annihilation: by default assume decay, if annihilation set True
         - Xbar: by default assume Xbar = conjugate(X), but can specify manually
                 in the same format as X
@@ -59,7 +57,7 @@ def spec(finalstate, X, xvals, mDM, annihilation=False, Xbar=None, delta=False):
         dNdx = np.append(dNdx, 0.)
 
     for high_id in id_is:
-        dNdx += FF(id_fs, high_id, xvals, Qval, delta=delta)
+        dNdx += FF(id_fs, high_id, xvals, Qval, data, delta=delta)
 
     # Average over polarizations (2 for X + Xbar)
     dNdx /= float(len(id_is))/2.
@@ -67,12 +65,13 @@ def spec(finalstate, X, xvals, mDM, annihilation=False, Xbar=None, delta=False):
     return dNdx
 
 
-def FF(id_f, id_i, xvals, Qval, delta=False):
+def FF(id_f, id_i, xvals, Qval, data, delta=False):
     """ Compute Fragmentation Function
         - id_f: final state id
         - id_i: initial state id
         - xvals: array of energy fractions to evaluate FF at 
         - Qval: virtuality scale initial [GeV]
+        - data: string point to the hdf5 data that ships with the github package
         - delta: append the delta function coefficient for the process as the
                  last entry in dN/dx
 
@@ -100,9 +99,6 @@ def FF(id_f, id_i, xvals, Qval, delta=False):
     dNdx = np.zeros_like(xvals)
     delta_coeff = 0.
 
-    
-    this_dir, this_filename = os.path.split(__file__)
-    DATA_PATH = os.path.join(this_dir, "HDMSpectra.hdf5")
     f = h5py.File(data, 'r')
     for high_id in id_i:
         # Load tabulated spectra - will interpolate to our specific value
