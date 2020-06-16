@@ -121,13 +121,13 @@ str_i = np.array(['d', 'u', 's', 'c', 'b', 't',             # Q
 noap = np.array([1921, 1922, 1923, 2921, 2922, 2923, 3923, 25])
 
 # Final state ids
-pdgid_f = np.array([11, -11,                   # e
-                    12, -12, 14, -14, 16, -16, # nu
-                    22,                        # gamma
-                    2212, -2212])              # p
+pdgid_f = np.array([11, -11,                   # electron
+                    12, -12, 14, -14, 16, -16, # neutrino
+                    22,                        # photon
+                    2212, -2212])              # proton
 
 # Final state strings - a indicates antiparticle
-str_f = np.array(['e', 'ae',                                         # e
-                  'nue', 'anue', 'numu', 'anumu', 'nutau', 'anutau', # nu
-                  'gamma',                                           # gamma
-                  'p', 'ap'])                                        # p
+str_f = np.array(['e', 'ae',                                         # electron
+                  'nue', 'anue', 'numu', 'anumu', 'nutau', 'anutau', # neutrino
+                  'gamma',                                           # photon
+                  'p', 'ap'])                                        # proton
