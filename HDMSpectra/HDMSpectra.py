@@ -18,7 +18,7 @@ import copy
 
 from .pclid import cid
 code_dir, _ = os.path.split(__file__)
-data = os.path.join(code_dir, "HDMSpectra.hdf5")
+data = os.path.join(code_dir, 'HDMSpectra.hdf5')
 
 
 def spec(finalstate, X, xvals, mDM, annihilation=False, Xbar=None, delta=False):
