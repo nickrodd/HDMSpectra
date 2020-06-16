@@ -8,6 +8,8 @@ Dark Matter Spectra from the Electroweak to the Planck Scale
 
 Tabulated dark matter decay and annihilation spectra for dark matter masses between the TeV and Planck scale. The spectra are similar in spirit to [PPPC4DMID](http://www.marcocirelli.net/PPPC4DMID.html), however with a number of improvements that become relevant for masses above the weak scale.
 
+**NB:** All spectra provided are prompt, no propagation effects are included.
+
 If these spectra are used in published work, please cite [20xx.xxxxx](https://arxiv.org/abs/20xx.xxxxx).
 
 ## Authors
