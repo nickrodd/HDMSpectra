@@ -121,9 +121,8 @@ def FF(id_f, id_i, xvals, Qval, data, delta=False):
     # Account for proton mass
     if id_f in np.array([2212, -2212]):
         # Determine proton energy fractions
-        en_p = np.sqrt(Qval**2.-mp**2.)
-        xp_E = np.sqrt(en_p**2.*xvals**2.+mp**2.)/Qval
-        rescale = (Qval/en_p)**2.*(xp_E/xvals)**2.*(xvals/xp_E)**k
+        xp_E = np.sqrt(Qval**2.*xvals**2.+mp**2.)/Qval
+        rescale = (xp_E/xvals)*(xvals/xp_E)**k
 
         if np.min(xp_E) > 1.e-6:
             xp_E = np.append(1.e-6, xp_E)
