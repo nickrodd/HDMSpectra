@@ -4,8 +4,7 @@ Dark Matter Spectra from the Electroweak to the Planck Scale
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![arXiv](https://img.shields.io/badge/arXiv-20xx.xxxxx%20-green.svg)](https://arxiv.org/abs/20xx.xxxxx)
 
-![Sensitivity](https://github.com/bsafdi/AxiScan/blob/master/examples/Projected_Sensitivity.png "Projected sensitivity versus S/N=1")
-
+![SpecAllM](https://github.com/nickrodd/HDMSpectra/blob/master/examples/bbbar_allM.png "Dark Matter to b-bbar to photons, all masses")
 
 Tabulated dark matter decay and annihilation spectra for dark matter masses between the TeV and Planck scale. The spectra are similar in spirit to [PPPC4DMID](http://www.marcocirelli.net/PPPC4DMID.html), however with a number of improvements that become relevant for masses above the weak scale.
 
@@ -29,12 +28,14 @@ python setup.py install
 
 ## Examples
 
-A demonstration of using HDMSpectra to reproduce a number of figures in [20xx.xxxxx](https://arxiv.org/abs/20xx.xxxxx) is provided [here](https://github.com/nickrodd/HDMSpectra/tree/master/examples). Further documentation of all features can be found in the examples also.
+A demonstration of how to access the basic features of HDMSpectra is provided [here](https://github.com/nickrodd/HDMSpectra/tree/master/examples). An example of how to reproduce many of the figures in [20xx.xxxxx](https://arxiv.org/abs/20xx.xxxxx) is also provided.
 
-As a minimal example, the 1 EeV spectrum in the figure above can be generated with
+As a minimal example, the 1 EeV spectrum in the figure above can be generated as follows
 
 ```
 import numpy as np
+from HDMSpectra import HDMSpectra
 
-
+xvals = np.logspace(-4.,0.,1000)
+dNdx = HDMSpectra.spec(22, 5, xvals, 1.e9)
 ```
