@@ -10,12 +10,15 @@
 #
 ###############################################################################
 
+import os
 import numpy as np
 from scipy.interpolate import interp1d, interp2d
 import h5py
 import copy
 
 from .pclid import cid
+code_dir, _ = os.path.split(__file__)
+data = os.path.join(code_dir, "HDMSpectra.hdf5")
 
 
 def spec(finalstate, X, xvals, mDM, annihilation=False, Xbar=None, delta=False):
@@ -97,7 +100,10 @@ def FF(id_f, id_i, xvals, Qval, delta=False):
     dNdx = np.zeros_like(xvals)
     delta_coeff = 0.
 
-    f = h5py.File("HDMSpectra.hdf5", "r")
+    
+    this_dir, this_filename = os.path.split(__file__)
+    DATA_PATH = os.path.join(this_dir, "HDMSpectra.hdf5")
+    f = h5py.File(data, 'r')
     for high_id in id_i:
         # Load tabulated spectra - will interpolate to our specific value
         xtab, Qtab, Ftab = unpackFF(id_f, high_id, f)
