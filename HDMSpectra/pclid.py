@@ -16,7 +16,6 @@
 import numpy as np
 import six
 
-
 def cid(id_f, id_i):
     """ Convert ids into the format they are stored in the FFs
         - id_f: final state id
