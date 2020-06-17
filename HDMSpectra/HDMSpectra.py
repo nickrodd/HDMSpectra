@@ -10,6 +10,7 @@
 #
 ###############################################################################
 
+from os import path
 import numpy as np
 from scipy.interpolate import interp1d, interp2d
 import h5py
@@ -34,6 +35,10 @@ def spec(finalstate, X, xvals, mDM, data,
 
         return: dN/dx
     """
+
+    # Confirm data file is at the specified location
+    assert (path.exists(data)), \
+        "data must point to the provided HDMSpectra.hdf5"
 
     # Determine Q value according to the process
     if annihilation: Qval = mDM
@@ -88,6 +93,11 @@ def FF(id_f, id_i, xvals, Qval, data, delta=False):
 
     # Process input ids
     id_f, id_i = cid(id_f, id_i)
+
+    # For the proton, x cannot be smaller than mp/Q
+    if id_f in np.array([2212, -2212]):
+         assert(np.min(xvals) >= mp/Qval), \
+            "x array extends below allowed value of mp/Q"
 
     # If final state is a proton, calculate an array of momentum fractions
     # and then account for the finite mp
