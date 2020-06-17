@@ -94,11 +94,6 @@ def FF(id_f, id_i, xvals, Qval, data, delta=False):
     # Process input ids
     id_f, id_i = cid(id_f, id_i)
 
-    # For the proton, x cannot be smaller than mp/Q
-    if id_f in np.array([2212, -2212]):
-         assert(np.min(xvals) >= mp/Qval), \
-            "x array extends below allowed value of mp/Q"
-
     # If final state is a proton, calculate an array of momentum fractions
     # and then account for the finite mp
     if id_f in np.array([2212, -2212]):
@@ -141,6 +136,9 @@ def FF(id_f, id_i, xvals, Qval, data, delta=False):
         
         dNdx_int = interp1d(xp_E, rescale*dNdx, kind='cubic')
         dNdx = dNdx_int(xvals_p)
+        # Remove values below mp/Q
+        xforbid = np.where(xvals_p < mp/Qval)
+        dNdx[xforbid] = 0.
 
     if delta:
         dNdx = np.append(dNdx, delta_coeff)
