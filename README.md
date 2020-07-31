@@ -2,7 +2,7 @@
 Dark Matter Spectra from the Electroweak to the Planck Scale
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![arXiv](https://img.shields.io/badge/arXiv-20xx.xxxxx%20-green.svg)](https://arxiv.org/abs/20xx.xxxxx)
+[![arXiv](https://img.shields.io/badge/arXiv-2007.15001%20-green.svg)](https://arxiv.org/abs/2007.15001)
 
 ![SpecAllM](https://github.com/nickrodd/HDMSpectra/blob/master/examples/bbbar_allM.png "Dark Matter to b-bbar to photons, all masses")
 
@@ -10,7 +10,7 @@ Tabulated dark matter decay and annihilation spectra for dark matter masses betw
 
 **NB:** All spectra provided are prompt, no propagation effects are included.
 
-If these spectra are used in published work, please cite [20xx.xxxxx](https://arxiv.org/abs/20xx.xxxxx).
+If these spectra are used in published work, please cite [2007.15001](https://arxiv.org/abs/2007.15001).
 
 ## Authors
 
@@ -34,7 +34,7 @@ If you encounter any issues in the installation, please reach out to nrodd@berke
 
 ## Examples
 
-A demonstration of how to access the basic features of HDMSpectra is provided [here](https://github.com/nickrodd/HDMSpectra/blob/master/examples/Functionality.ipynb). An example of how to reproduce many of the figures in [20xx.xxxxx](https://arxiv.org/abs/20xx.xxxxx) can be found [here](https://github.com/nickrodd/HDMSpectra/blob/master/examples/ReproducingPlots.ipynb).
+A demonstration of how to access the basic features of HDMSpectra is provided [here](https://github.com/nickrodd/HDMSpectra/blob/master/examples/Functionality.ipynb). An example of how to reproduce many of the figures in [2007.15001](https://arxiv.org/abs/2007.15001) can be found [here](https://github.com/nickrodd/HDMSpectra/blob/master/examples/ReproducingPlots.ipynb).
 
 As a minimal example, the 1 EeV spectrum in the figure above can be generated as follows
 
