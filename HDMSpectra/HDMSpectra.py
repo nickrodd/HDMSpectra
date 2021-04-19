@@ -10,6 +10,8 @@
 #
 ###############################################################################
 
+from __future__ import print_function
+
 from os import path
 import numpy as np
 from scipy.interpolate import interp1d, interp2d
@@ -19,7 +21,8 @@ import copy
 from .pclid import cid
 
 def spec(finalstate, X, xvals, mDM, data, 
-         annihilation=False, Xbar=None, delta=False):
+         annihilation=False, Xbar=None, delta=False,
+         interpolation='cubic'):
     """ Compute spectrum per decay (or per annihilation) of heavy dark matter
         Process computed is DM(+DM) -> X Xbar -> finalstate
         - finalstate: stable Standard Model state, provide as a string or pdgid
@@ -32,6 +35,8 @@ def spec(finalstate, X, xvals, mDM, data,
                 in the same format as X
         - delta: append the delta function coefficient for the process as the
                  last entry in dN/dx
+        - interpolation: the kind of interpolation to use between the provided
+                         data points, either cubic or linear
 
         return: dN/dx
     """
@@ -66,6 +71,16 @@ def spec(finalstate, X, xvals, mDM, data,
 
     # Average over polarizations (2 for X + Xbar)
     dNdx /= float(len(id_is))/2.
+
+    # Check for the presence of negative dN/dx values
+    # These result from the cubic interpolation of points near 0
+    if np.min(dNdx) < 0.:
+        negloc = np.where(dNdx < 0.)
+        dNdx[negloc] = 0.
+        print("Negative dN/dx values were set to 0 for the following x:")
+        print(xvals[negloc])
+        print("Caution around these values should be taken")
+        print("A comparison with linear interpolation is recommended")
     
     return dNdx
 
