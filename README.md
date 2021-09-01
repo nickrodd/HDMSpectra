@@ -18,7 +18,7 @@ If these spectra are used in published work, please cite [2007.15001](https://ar
 - Nicholas Rodd
 - Bryan Webber
 
-Please direct any questions or issues to nrodd@berkeley.edu.
+Please direct any questions or issues to nrodd@cern.ch.
 
 ## Installation
 
@@ -32,7 +32,7 @@ The code is designed for use with python 3 and depends on the following packages
 
 The package can be used with python 2, although it is not recommended. The dependencies can be harder to install as pip has deprecated python 2, and so an older version of pip may be required. (Thanks to Pat Harding for drawing this to our attention.)
 
-If you encounter any issues in the installation, please reach out to nrodd@berkeley.edu.
+If you encounter any issues in the installation, please reach out to nrodd@cern.ch.
 
 ## Examples
 
