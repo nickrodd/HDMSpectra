@@ -67,7 +67,8 @@ def spec(finalstate, X, xvals, mDM, data,
         dNdx = np.append(dNdx, 0.)
 
     for high_id in id_is:
-        dNdx += FF(id_fs, high_id, xvals, Qval, data, delta=delta)
+        dNdx += FF(id_fs, high_id, xvals, Qval, data, delta=delta, 
+                   interpolation=interpolation)
 
     # Average over polarizations (2 for X + Xbar)
     dNdx /= float(len(id_is))/2.
@@ -85,7 +86,7 @@ def spec(finalstate, X, xvals, mDM, data,
     return dNdx
 
 
-def FF(id_f, id_i, xvals, Qval, data, delta=False):
+def FF(id_f, id_i, xvals, Qval, data, delta=False, interpolation='cubic'):
     """ Compute Fragmentation Function
         - id_f: final state id
         - id_i: initial state id
@@ -94,6 +95,8 @@ def FF(id_f, id_i, xvals, Qval, data, delta=False):
         - data: string point to the hdf5 data that ships with the github package
         - delta: append the delta function coefficient for the process as the
                  last entry in dN/dx
+        - interpolation: the kind of interpolation to use between the provided
+                         data points, either cubic or linear
 
         return: dN/dx
     """
@@ -125,13 +128,14 @@ def FF(id_f, id_i, xvals, Qval, data, delta=False):
         xtab, Qtab, Ftab = unpackFF(id_f, high_id, f)
 
         # Interpolate to the relevant values
-        FF_int = interp2d(xtab, Qtab, Ftab, kind='cubic')
+        FF_int = interp2d(xtab, Qtab, Ftab, kind=interpolation)
 
         # FF is d(x) = x*dNdx
         dNdx += FF_int(xvals, np.log10(Qval))/xvals
 
         if delta:
-            delta_coeff += unpackdelta(id_f, high_id, f, Qval)
+            delta_coeff += unpackdelta(id_f, high_id, f, Qval, 
+                                       interpolation=interpolation)
 
     f.close()
     
@@ -205,12 +209,14 @@ def unpackFF(id_f, id_i, f):
     return xarr, Qarr, Farr
 
 
-def unpackdelta(id_f, high_id, f, Qval):
+def unpackdelta(id_f, high_id, f, Qval, interpolation='cubic'):
     """ Extract relevant arrays of x, Q, and FF for specified IDs
         - id_f: final state pdg id
         - id_i: initial state polarized pdg id
         - f: h5py file
-        - Qval: virtuality scale initial [GeV] 
+        - Qval: virtuality scale initial [GeV]
+        - interpolation: the kind of interpolation to use between the provided
+                         data points, either cubic or linear
     """
 
     check_delta = str(high_id) + '_2_' + str(id_f)
@@ -219,7 +225,7 @@ def unpackdelta(id_f, high_id, f, Qval):
         d = f['delta_coeff']
         Qarr = d['Q']
         darr = d[check_delta]
-        d_int = interp1d(Qarr, darr, kind='cubic')
+        d_int = interp1d(Qarr, darr, kind=interpolation)
 
         return d_int(np.log10(Qval))
     else:
