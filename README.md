@@ -18,7 +18,7 @@ If these spectra are used in published work, please cite [2007.15001](https://ar
 - Nicholas Rodd
 - Bryan Webber
 
-Please direct any questions or issues to nrodd@cern.ch.
+Please direct any questions or issues to nrodd@lbl.gov.
 
 ## Installation
 
