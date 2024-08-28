@@ -14,7 +14,7 @@ from __future__ import print_function
 
 from os import path
 import numpy as np
-from scipy.interpolate import interp1d, interp2d
+from scipy.interpolate import interp1d, RegularGridInterpolator
 import h5py
 import copy
 
@@ -128,10 +128,13 @@ def FF(id_f, id_i, xvals, Qval, data, delta=False, interpolation='cubic'):
         xtab, Qtab, Ftab = unpackFF(id_f, high_id, f)
 
         # Interpolate to the relevant values
-        FF_int = interp2d(xtab, Qtab, Ftab, kind=interpolation)
+        # Adjust zero value to be 1.e-6
+        xtab0 = np.copy(xtab)
+        xtab0[0] = 1.e-6
+        FF_int = RegularGridInterpolator((Qtab, xtab0), Ftab, method=interpolation)
 
         # FF is d(x) = x*dNdx
-        dNdx += FF_int(xvals, np.log10(Qval))/xvals
+        dNdx += FF_int((np.log10(Qval), xvals))/xvals
 
         if delta:
             delta_coeff += unpackdelta(id_f, high_id, f, Qval, 
